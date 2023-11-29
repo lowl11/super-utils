@@ -43,3 +43,32 @@ func MergeBool(a, b bool) bool {
 
 	return a == b
 }
+
+func IntToBool(i string) bool {
+	if i == "1" {
+		return true
+	} else if i == "2" {
+		return false
+	}
+	// Return a default value or handle other cases if necessary
+	return false
+}
+
+func IntToStringBool(i string) string {
+	if i == "1" {
+		return "true"
+	} else if i == "2" {
+		return "false"
+	}
+	// Return a default value or handle other cases if necessary
+	return "false"
+}
+
+func GetKeyByValue(m map[string]string, value string) (key string, found bool) {
+	for k, v := range m {
+		if v == value {
+			return k, true
+		}
+	}
+	return "", false
+}
