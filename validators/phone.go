@@ -6,10 +6,10 @@ import (
 )
 
 func ValidateMobilePhone(phone string) (string, bool) {
-	if !isValid(phone) {
+	if !IsValidPhone(phone) {
 		return phone, false
 	}
-	trimmedPhone := trim(phone)
+	trimmedPhone := trimMobilePhone(phone)
 
 	//if not is kazakhstan and russian
 	if string(trimmedPhone[0]) != "7" && string(trimmedPhone[0]) != "8" {
@@ -25,40 +25,28 @@ func ValidateMobilePhone(phone string) (string, bool) {
 	}
 
 	//validation KazakhstanPhone
-	if !isKazakhstanPhone(trimmedPhone) {
+	if !IsKazakhstanPhone(trimmedPhone) {
 		return phone, false
 	}
 
 	return "+" + trimmedPhone, true
 }
 
-func ValidateBasicPhone(phone string) (string, bool) {
-	if !isValid(phone) {
-		return phone, false
-	}
-	firstPlus := IsFirstPlus(phone)
-	trimmedPhone := trim(phone)
-
-	if firstPlus {
-		trimmedPhone = "+" + trimmedPhone
-	}
-	return trimmedPhone, true
-}
-
-// првоеряет чтоб были допустимые символи и первый знак +
-func isValid(str string) bool {
+// IsValidPhone Проверяет чтоб были допустимые символы и первый знак +
+func IsValidPhone(str string) bool {
 
 	re := regexp.MustCompile(`^[+]?[0-9()\s–-]+$`)
 	return re.MatchString(str)
 }
 
-func IsFirstPlus(phone string) bool {
+func isFirstPlus(phone string) bool {
 	if phone[0] == '+' {
 		return true
 	}
 	return false
 }
-func trim(input string) string {
+
+func trimMobilePhone(input string) string {
 	// Символы, которые нужно удалить
 	charsToRemove := "()-–-+b "
 
@@ -70,7 +58,7 @@ func trim(input string) string {
 	return input
 }
 
-func isKazakhstanPhone(phone string) bool {
+func IsKazakhstanPhone(phone string) bool {
 	operatorCodes := []string{"701", "702", "703", "704", "705",
 		"706", "707", "708", "709", "747", "750", "751", "760", "761",
 		"762", "763", "764", "771", "775", "776", "777", "778", "301",
@@ -105,4 +93,17 @@ func isKazakhstanPhone(phone string) bool {
 	}
 
 	return false
+}
+
+func ValidateBasicPhone(phone string) (string, bool) {
+	if !IsValidPhone(phone) {
+		return phone, false
+	}
+	firstPlus := isFirstPlus(phone)
+	trimmedPhone := trimMobilePhone(phone)
+
+	if firstPlus {
+		trimmedPhone = "+" + trimmedPhone
+	}
+	return trimmedPhone, true
 }
