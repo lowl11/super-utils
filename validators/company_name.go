@@ -3,7 +3,7 @@ package validators
 import (
 	"regexp"
 
-	"super-util/util"
+	"github.com/lowl11/super-utils/util"
 )
 
 var OrgForms = map[string]string{

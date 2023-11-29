@@ -1,4 +1,5 @@
-module super-util
+module github.com/lowl11/super-utils
+
 
 go 1.20
 
