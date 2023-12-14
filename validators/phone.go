@@ -26,7 +26,11 @@ func ValidateMobilePhone(phone string) (string, bool) {
 
 	//validation KazakhstanPhone
 	if !IsKazakhstanPhone(trimmedPhone) {
-		return phone, false
+		return phone, true
+	}
+
+	if IsKazakhstanPhone(trimmedPhone) {
+		return "+" + transformFirstSymbol(trimmedPhone), true
 	}
 
 	return "+" + trimmedPhone, true
@@ -46,6 +50,24 @@ func isFirstPlus(phone string) bool {
 	return false
 }
 
+func transformFirstSymbol(phone string) string {
+	if len(phone) < 3 {
+		return phone
+	}
+	if isFirstPlus(phone) {
+		if []rune(phone)[1] == '7' || []rune(phone)[1] == '8' {
+			newPhone := []rune(phone)
+			newPhone[1] = '7'
+			return string(newPhone)
+		}
+	}
+	if []rune(phone)[0] == '7' || []rune(phone)[0] == '8' {
+		newPhone := []rune(phone)
+		newPhone[0] = '7'
+		return string(newPhone)
+	}
+	return phone
+}
 func trimMobilePhone(input string) string {
 	// Символы, которые нужно удалить
 	charsToRemove := "()-–-+b "

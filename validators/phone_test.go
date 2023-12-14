@@ -17,6 +17,10 @@ func TestValidateMobilePhone(t *testing.T) {
 			phone: "+818046500000",
 			valid: true,
 		}}, // Верная строка: пример японского номера
+		{"8-705-123-4567", expected{
+			phone: "+77051234567",
+			valid: true,
+		}}, // валидный кз номер
 		{"+7-305-1111111", expected{
 			phone: "+73051111111",
 			valid: true,
@@ -29,6 +33,10 @@ func TestValidateMobilePhone(t *testing.T) {
 			phone: "+18005551234",
 			valid: true,
 		}}, // Верная строка: знак плюса и тире
+		{"883256582351516546", expected{
+			phone: "883256582351516546",
+			valid: true,
+		}}, // Верная строка: иностранный номер начинающийся на 8
 		{"+7-105-1142306", expected{
 			phone: "+7-105-1142306",
 			valid: false,
