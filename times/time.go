@@ -7,7 +7,7 @@ import (
 const (
 	defaultFormat    = "2006-01-02 15:04:05.000000"
 	formatWithSlash  = "2006/01/02 15:04:05.000000"
-	reverseWithSlash = "02/01/2006 15:04:05.000000"
+	reverseWithSlash = "01/02/2006 15:04:05.000000"
 )
 const (
 	dataWithSlashShort = "02/01/06"

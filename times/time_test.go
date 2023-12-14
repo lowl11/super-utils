@@ -21,6 +21,12 @@ func TestTimeStampToAlmatyZone(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, expected, res)
 	}
+	{
+		res, err := TimeStampToAlmatyZone("11/16/2023 16:44:06.000000")
+		log.Printf("\n \n parsed time %+v \v\v err %+v", res, err)
+		assert.Nil(t, err)
+		assert.Equal(t, expected, res)
+	}
 
 }
 func TestDateToAlmatyTime(t *testing.T) {
