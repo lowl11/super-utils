@@ -9,10 +9,28 @@ func TestValidateMobilePhone(t *testing.T) {
 		phone string
 		valid bool
 	}
+	//
 	testCases := []struct {
 		input    string
 		expected expected
 	}{
+
+		{"7714735008", expected{
+			phone: "+77714735008",
+			valid: true,
+		}},
+		{"87714735008", expected{
+			phone: "+77714735008",
+			valid: true,
+		}},
+		{"883256582351516546", expected{
+			phone: "883256582351516546",
+			valid: true,
+		}},
+		{"7014735008", expected{
+			phone: "+77014735008",
+			valid: true,
+		}},
 		{"+81-80-46500000", expected{
 			phone: "+818046500000",
 			valid: true,

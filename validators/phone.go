@@ -51,21 +51,17 @@ func isFirstPlus(phone string) bool {
 }
 
 func transformFirstSymbol(phone string) string {
-	if len(phone) < 3 {
-		return phone
-	}
-	if isFirstPlus(phone) {
-		if []rune(phone)[1] == '7' || []rune(phone)[1] == '8' {
+	if len(phone) == 11 {
+		if []rune(phone)[0] == '7' || []rune(phone)[0] == '8' {
 			newPhone := []rune(phone)
-			newPhone[1] = '7'
+			newPhone[0] = '7'
 			return string(newPhone)
 		}
 	}
-	if []rune(phone)[0] == '7' || []rune(phone)[0] == '8' {
-		newPhone := []rune(phone)
-		newPhone[0] = '7'
-		return string(newPhone)
+	if len(phone) == 10 {
+		return "7" + string(phone)
 	}
+
 	return phone
 }
 func trimMobilePhone(input string) string {
