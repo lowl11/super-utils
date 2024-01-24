@@ -25,8 +25,9 @@ type Record struct {
 	KafkaField          string           `json:"kafkaField"`
 	CreatedTS           time.Time        `json:"CreatedTS"`
 	SidEntity           string           `json:"sidEntity"`
-	CustomerId          string           `json:"customerId"`
+	CustomerId          string           `json:"customerId"` //not supported
 	LegalEntityId       string           `json:"legalEntityId"`
+	Customer            Customer         `json:"customer"`
 }
 
 type KafkaMessageInfo struct {
