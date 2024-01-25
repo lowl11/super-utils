@@ -20,7 +20,7 @@ type Record struct {
 	ValueToBe           string           `json:"valueToBe"`
 	ValuePrev           string           `json:"valuePrev"`
 	InvalidKeyAttribute bool             `json:"invalidAttribute"`
-	Customer            Customer         `json:"customer"`
+	Customer            *Customer        `json:"customer"`
 	ManagerId           string           `json:"managerId"`
 	KafkaID             KafkaMessageInfo `json:"kafkaID"`
 }
