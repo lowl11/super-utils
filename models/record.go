@@ -11,23 +11,20 @@ const (
 
 type Record struct {
 	GoldenId            string           `json:"goldenID"`
+	CreatedTS           time.Time        `json:"createdTS"`
+	KafkaField          string           `json:"kafkaField"`
 	Sid                 string           `json:"sid"`
 	System              string           `json:"system"`
 	Source              string           `json:"source"`
-	BusinessTime        time.Time        `json:"businessTS"`
+	BusinessTime        string           `json:"businessTS"`
 	Entity              string           `json:"entity"`
 	Attribute           string           `json:"attribute"`
 	ValueToBe           string           `json:"valueToBe"`
 	ValuePrev           string           `json:"valuePrev"`
-	ManagerId           string           `json:"managerId"`
 	InvalidKeyAttribute bool             `json:"invalidAttribute"`
+	Customer            *Customer        `json:"customer"`
+	ManagerId           string           `json:"managerId"`
 	KafkaID             KafkaMessageInfo `json:"kafkaID"`
-	KafkaField          string           `json:"kafkaField"`
-	CreatedTS           time.Time        `json:"CreatedTS"`
-	SidEntity           string           `json:"sidEntity"`
-	CustomerId          string           `json:"customerId"` //not supported
-	LegalEntityId       string           `json:"legalEntityId"`
-	Customer            Customer         `json:"customer"`
 }
 
 type KafkaMessageInfo struct {
