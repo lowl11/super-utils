@@ -8,6 +8,7 @@ const (
 )
 
 type Record struct {
+	GoldenId            string           `json:"goldenID,omitempty"`
 	CreatedTS           string           `json:"createdTS"`
 	KafkaField          string           `json:"kafkaField"`
 	Sid                 string           `json:"sid"`
@@ -19,7 +20,7 @@ type Record struct {
 	ValueToBe           string           `json:"valueToBe"`
 	ValuePrev           string           `json:"valuePrev"`
 	InvalidKeyAttribute bool             `json:"invalidAttribute"`
-	Customer            *Customer        `json:"customer"`
+	Customer            Customer         `json:"customer"`
 	ManagerId           string           `json:"managerId"`
 	KafkaID             KafkaMessageInfo `json:"kafkaID"`
 }
@@ -34,22 +35,4 @@ type Customer struct {
 	Sid    string `json:"sid"`
 	Entity string `json:"entity"`
 	System string `json:"system"`
-}
-
-type RecordWithGoldId struct {
-	GoldenId            string           `json:"goldenID,omitempty"`
-	CreatedTS           string           `json:"createdTS"`
-	KafkaField          string           `json:"kafkaField"`
-	Sid                 string           `json:"sid"`
-	System              string           `json:"system"`
-	Source              string           `json:"source"`
-	BusinessTime        string           `json:"businessTS"`
-	Entity              string           `json:"entity"`
-	Attribute           string           `json:"attribute"`
-	ValueToBe           string           `json:"valueToBe"`
-	ValuePrev           string           `json:"valuePrev"`
-	InvalidKeyAttribute bool             `json:"invalidAttribute"`
-	Customer            *Customer        `json:"customer"`
-	ManagerId           string           `json:"managerId"`
-	KafkaID             KafkaMessageInfo `json:"kafkaID"`
 }
