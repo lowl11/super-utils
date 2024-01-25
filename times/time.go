@@ -50,7 +50,7 @@ func TimeStampToAlmatyZone(str string) (string, error) {
 }
 
 func DateToAlmatyTime(str string) (string, error) {
-	var timeFormats = []string{dataWithSlash, dataWithSlashShort}
+	var timeFormats = []string{dataWithSlash, dataWithSlashShort, defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash}
 
 	var parse time.Time
 	var err error

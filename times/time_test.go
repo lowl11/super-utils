@@ -41,4 +41,9 @@ func TestDateToAlmatyTime(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, expected, res)
 	}
+	{
+		res, err := DateToAlmatyTime("11/16/2023 00:00:00.000000")
+		assert.Nil(t, err)
+		assert.Equal(t, expected, res)
+	}
 }
