@@ -1,12 +1,8 @@
-package validators
+package util
 
-import (
-	"regexp"
+import "regexp"
 
-	"github.com/lowl11/super-utils/util"
-)
-
-var OrgForms = map[string]string{
+var _companyOrgForms = map[string]string{
 	"АО":         "Акционерное общество",
 	"АОЗТ":       "Акционерное общество закрытого типа",
 	"ГККП":       "Государственное коммунальное казенное предприятие",
@@ -65,20 +61,11 @@ func CompanyShortNameTransform(companyName string) string {
 		return companyName
 	}
 
-	if orgForm, found := util.GetKeyByValue(OrgForms, match[1]); found {
+	if orgForm, found := GetKeyByValue(_companyOrgForms, match[1]); found {
 		// Найдено совпадение, создайте полное наименование
 		fullName = orgForm + " " + "«" + match[2] + "»"
 		companyName = fullName
 	}
 
 	return companyName
-}
-
-func IsValidCompanyName(companyName string) bool {
-	// Проверка на допустимые символы
-	allowedChars := regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9"' \-,./«»]+$`)
-	if !allowedChars.MatchString(companyName) {
-		return false
-	}
-	return true
 }

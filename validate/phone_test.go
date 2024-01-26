@@ -1,4 +1,4 @@
-package validators
+package validate
 
 import (
 	"testing"
@@ -92,7 +92,7 @@ func TestValidateMobilePhone(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.input, func(t *testing.T) {
-			phone, valid := ValidateMobilePhone(testCase.input)
+			phone, valid := MobilePhone(testCase.input)
 			if phone != testCase.expected.phone && valid == testCase.expected.valid {
 				t.Errorf("Для строки '%s' ожидается phone %v valid %v, но получено phone %s, valid %v",
 					testCase.input, testCase.expected.phone, testCase.expected.valid, phone, valid)
@@ -168,7 +168,7 @@ func TestValidatePhone(t *testing.T) {
 
 	for _, testCase := range testCases {
 		t.Run(testCase.input, func(t *testing.T) {
-			phone, valid := ValidateBasicPhone(testCase.input)
+			phone, valid := BasicPhone(testCase.input)
 			if phone != testCase.expected.phone && valid == testCase.expected.valid {
 				t.Errorf("Для строки '%s' ожидается phone %v valid %v, но получено phone %s, valid %v",
 					testCase.input, testCase.expected.phone, testCase.expected.valid, phone, valid)

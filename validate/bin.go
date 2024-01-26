@@ -1,10 +1,10 @@
-package validators
+package validate
 
 import (
 	"strconv"
 )
 
-func IsValidBIN(bin string) bool {
+func BIN(bin string) bool {
 	// Проверка длины
 	if len(bin) != 12 {
 		return false

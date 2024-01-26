@@ -1,4 +1,4 @@
-package validators
+package validate
 
 import (
 	"testing"
@@ -22,7 +22,7 @@ func TestValidateNumberOfRegistration(t *testing.T) {
 	}
 	{
 		for _, tCase := range tests {
-			res, valid := ValidateNumberOfRegistration(tCase.input)
+			res, valid := NumberOfRegistration(tCase.input)
 			assert.Equal(t, tCase.value, res)
 			assert.Equal(t, tCase.valid, valid)
 

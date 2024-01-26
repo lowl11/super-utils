@@ -1,8 +1,8 @@
-package validators
+package validate
 
 import "regexp"
 
-func ValidateNumberOfRegistration(str string) (string, bool) {
+func NumberOfRegistration(str string) (string, bool) {
 	// Допустимые символы только: цифры, буквы латиницы и кириллицы,
 	//пробелы, дефисы/тире, точки, скобки, слэш, двоеточие. Содержит либо только буквы кириллицы
 	//(без букв латиницы), либо должно содержать только буквы латиницы без букв кириллицы).

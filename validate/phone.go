@@ -1,11 +1,11 @@
-package validators
+package validate
 
 import (
 	"regexp"
 	"strings"
 )
 
-func ValidateMobilePhone(phone string) (string, bool) {
+func MobilePhone(phone string) (string, bool) {
 	if !IsValidPhone(phone) {
 		return phone, false
 	}
@@ -58,12 +58,14 @@ func transformFirstSymbol(phone string) string {
 			return string(newPhone)
 		}
 	}
+
 	if len(phone) == 10 {
 		return "7" + string(phone)
 	}
 
 	return phone
 }
+
 func trimMobilePhone(input string) string {
 	// Символы, которые нужно удалить
 	charsToRemove := "()-–-+b "
@@ -113,7 +115,7 @@ func IsKazakhstanPhone(phone string) bool {
 	return false
 }
 
-func ValidateBasicPhone(phone string) (string, bool) {
+func BasicPhone(phone string) (string, bool) {
 	if !IsValidPhone(phone) {
 		return phone, false
 	}
