@@ -31,6 +31,18 @@ func TestValidateMobilePhone(t *testing.T) {
 			phone: "+77014735008",
 			valid: true,
 		}},
+		{"7004735008", expected{
+			phone: "+77004735008",
+			valid: true,
+		}},
+		{"87004735008", expected{
+			phone: "+77004735008",
+			valid: true,
+		}},
+		{"+77004735008", expected{
+			phone: "+77004735008",
+			valid: true,
+		}},
 		{"+81-80-46500000", expected{
 			phone: "+818046500000",
 			valid: true,
