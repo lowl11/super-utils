@@ -21,6 +21,7 @@ func TestValidateFirstName(t *testing.T) {
 		{"Черепашка—Ниндзя", "Черепашка—Ниндзя", true},
 		{"П.Томас", "П.Томас", true},
 	}
+
 	{
 		for _, tCase := range tests {
 			res, valid := ValidateFirstName(tCase.input)
