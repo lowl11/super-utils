@@ -6,6 +6,8 @@ import (
 	"github.com/lowl11/super-utils/util"
 )
 
+var validCharsForCorp = regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9"' \-,./«»]+$`)
+
 var OrgForms = map[string]string{
 	"АО":         "Акционерное общество",
 	"АОЗТ":       "Акционерное общество закрытого типа",
@@ -76,8 +78,7 @@ func CompanyShortNameTransform(companyName string) string {
 
 func IsValidCompanyName(companyName string) bool {
 	// Проверка на допустимые символы
-	allowedChars := regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9"' \-,./«»]+$`)
-	if !allowedChars.MatchString(companyName) {
+	if !validCharsForCorp.MatchString(companyName) {
 		return false
 	}
 	return true
