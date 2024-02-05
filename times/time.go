@@ -58,7 +58,7 @@ func getAlmatyLocale() *time.Location {
 	return loc
 }
 
-func CheckAlmatyZone() error {
+func CheckAlmatyLocale() error {
 	_, err := time.LoadLocation("Asia/Almaty")
 	return err
 }
