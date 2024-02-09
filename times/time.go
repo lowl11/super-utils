@@ -7,9 +7,12 @@ import (
 )
 
 const (
-	defaultFormat    = "2006-01-02 15:04:05.000000"
-	formatWithSlash  = "2006/01/02 15:04:05.000000"
-	reverseWithSlash = "01/02/2006 15:04:05.000000"
+	defaultFormat                      = "2006-01-02 15:04:05.000000"
+	defaultFormatWithOutMillisecond    = "2006-01-02 15:04:05"
+	formatWithSlash                    = "2006/01/02 15:04:05.000000"
+	formatWithSlashWithOutMillisecond  = "2006/01/02 15:04:05"
+	reverseWithSlash                   = "01/02/2006 15:04:05.000000"
+	reverseWithSlashWithOutMillisecond = "01/02/2006 15:04:05"
 )
 const (
 	dataWithSlashShort = "02/01/06"
@@ -22,7 +25,8 @@ var utc6 = time.FixedZone("UTC+6", 6*60*60)
 // If not exist Asia/Almaty time zone, return custom UTC+6 time zone
 // return time in RFC3339 format
 func TimeStampToAlmatyZone(str string) (string, error) {
-	var timeFormats = []string{defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash}
+	var timeFormats = []string{defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash,
+		defaultFormatWithOutMillisecond, formatWithSlashWithOutMillisecond, reverseWithSlashWithOutMillisecond}
 
 	var parse time.Time
 	var err error
