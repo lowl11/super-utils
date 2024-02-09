@@ -3,6 +3,7 @@ package times
 import (
 	"log"
 	"time"
+	_ "time/tzdata"
 )
 
 const (
@@ -41,8 +42,18 @@ func TimeStampToAlmatyZone(str string) (string, error) {
 
 	loc := getAlmatyLocale()
 
-	timeWithTimeZone := parse.In(loc)
-	formatted = timeWithTimeZone.Format(time.RFC3339)
+	//если нет тайм зоны то проставляется utc
+	// при добавлении зоны, ти приводится по ней bef: time 14:00 utc, after: 14:00 +06
+	if parse.Location() == nil || parse.Location() == time.UTC {
+		//если нет тайм зоны, то проставляется utc
+		// при добавлении зоны, приводится по ней bef: time 14:00 00, after: 14:00 +06
+
+		timeWithTimeZone := parse.In(loc).Add(-time.Hour * 6)
+		formatted = timeWithTimeZone.Format(time.RFC3339)
+	} else {
+		timeWithTimeZone := parse.In(loc)
+		formatted = timeWithTimeZone.Format(time.RFC3339)
+	}
 
 	return formatted, nil
 }
@@ -81,7 +92,7 @@ func DateToAlmatyTime(str string) (string, error) {
 
 	formatted := ""
 	// +6 time zone
-	loc := time.FixedZone("UTC+6", 6*60*60)
+	loc := getAlmatyLocale()
 	if parse.Location() == time.UTC {
 		//если нет тайм зоны то проставляется utc
 		// при добавлении зоны, ти приводится по ней bef: time 14:00 utc, after: 20:00 utc
