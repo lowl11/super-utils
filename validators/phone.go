@@ -11,6 +11,10 @@ func ValidateMobilePhone(phone string) (string, bool) {
 	}
 	trimmedPhone := trimMobilePhone(phone)
 
+	if len(trimmedPhone) == 0 {
+		return phone, false
+	}
+
 	//if not is kazakhstan and russian
 	if string(trimmedPhone[0]) != "7" && string(trimmedPhone[0]) != "8" {
 		return "+" + trimmedPhone, true

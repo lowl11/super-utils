@@ -99,7 +99,10 @@ func TestValidateMobilePhone(t *testing.T) {
 			phone: "ABC-DEF-GHI",
 			valid: false,
 		}}, // Недопустимая строка: буквы и дефис
-
+		{" ", expected{
+			phone: " ",
+			valid: false,
+		}},
 	}
 
 	for _, testCase := range testCases {
