@@ -178,7 +178,10 @@ func TestValidatePhone(t *testing.T) {
 			phone: "3222222333",
 			valid: true,
 		}}, // Недопустимая строка: буквы и дефис
-
+		{" ", expected{
+			phone: " ",
+			valid: false,
+		}},
 	}
 
 	for _, testCase := range testCases {

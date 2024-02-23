@@ -5,6 +5,15 @@ import (
 	"strings"
 )
 
+var availablePhoneAndFirstPlus = regexp.MustCompile(`^[+]?[0-9()\s–-]+$`)
+
+var KazakhstanOperatorCode = []string{"700", "701", "702", "703", "704", "705",
+	"706", "707", "708", "709", "747", "750", "751", "760", "761",
+	"762", "763", "764", "771", "775", "776", "777", "778", "301",
+	"302", "303", "304", "305", "306", "307", "308", "309", "347",
+	"350", "351", "360", "361", "362", "363", "364", "371", "375",
+	"376", "377", "378"}
+
 func ValidateMobilePhone(phone string) (string, bool) {
 	if !IsValidPhone(phone) {
 		return phone, false
@@ -42,12 +51,14 @@ func ValidateMobilePhone(phone string) (string, bool) {
 
 // IsValidPhone Проверяет чтоб были допустимые символы и первый знак +
 func IsValidPhone(str string) bool {
-
-	re := regexp.MustCompile(`^[+]?[0-9()\s–-]+$`)
-	return re.MatchString(str)
+	return availablePhoneAndFirstPlus.MatchString(str)
 }
 
 func isFirstPlus(phone string) bool {
+	if len(phone) == 0 {
+		return false
+
+	}
 	if phone[0] == '+' {
 		return true
 	}
@@ -81,17 +92,10 @@ func trimMobilePhone(input string) string {
 }
 
 func IsKazakhstanPhone(phone string) bool {
-	operatorCodes := []string{"700", "701", "702", "703", "704", "705",
-		"706", "707", "708", "709", "747", "750", "751", "760", "761",
-		"762", "763", "764", "771", "775", "776", "777", "778", "301",
-		"302", "303", "304", "305", "306", "307", "308", "309", "347",
-		"350", "351", "360", "361", "362", "363", "364", "371", "375",
-		"376", "377", "378"}
-
 	if len(phone) == 11 && (string(phone[0]) == "8" || string(phone[0]) == "7") {
 		code := phone[1:4]
 		exist := false
-		for _, s := range operatorCodes {
+		for _, s := range KazakhstanOperatorCode {
 			if s == code {
 				exist = true
 			}
@@ -104,8 +108,8 @@ func IsKazakhstanPhone(phone string) bool {
 	if len(phone) == 10 {
 		code := phone[0:3]
 		exist := false
-		for _, s := range operatorCodes {
-			if s == code {
+		for _, kzCode := range KazakhstanOperatorCode {
+			if kzCode == code {
 				exist = true
 			}
 		}
@@ -121,7 +125,9 @@ func ValidateBasicPhone(phone string) (string, bool) {
 	if !IsValidPhone(phone) {
 		return phone, false
 	}
+
 	firstPlus := isFirstPlus(phone)
+
 	trimmedPhone := trimMobilePhone(phone)
 
 	if firstPlus {
