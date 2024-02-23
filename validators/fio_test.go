@@ -18,17 +18,16 @@ func TestValidateFirstName(t *testing.T) {
 		{"   саня  ", "саня", true},
 		{"Жан-Клод", "Жан-Клод", true},
 		{"Жан Клод", "Жан Клод", true},
-		{"Черепашка—Ниндзя", "Черепашка—Ниндзя", true},
+		{"ЧерепашқҢ—Ниндзя", "ЧерепашқҢ—Ниндзя", true},
 		{"П.Томас", "П.Томас", true},
+		{"әғқңөұүһі", "әғқңөұүһі", true},
 	}
 
-	{
-		for _, tCase := range tests {
-			res, valid := ValidateFirstName(tCase.input)
-			assert.Equal(t, tCase.value, res, "input: %s", tCase.input)
-			assert.Equal(t, tCase.valid, valid, "input: %s", tCase.input)
+	for _, tCase := range tests {
+		res, valid := ValidateFirstName(tCase.input)
+		assert.Equal(t, tCase.value, res, "input: %s", tCase.input)
+		assert.Equal(t, tCase.valid, valid, "input: %s", tCase.input)
 
-		}
 	}
 
 }
