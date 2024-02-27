@@ -6,6 +6,7 @@ import (
 )
 
 const (
+	defaultGolangFormat                = "2006-01-02 15:04:05.999999999 -0700 MST"
 	defaultFormat                      = "2006-01-02 15:04:05.000000"
 	defaultFormatWithOutMillisecond    = "2006-01-02 15:04:05"
 	formatWithSlash                    = "2006/01/02 15:04:05.000000"
@@ -32,7 +33,7 @@ func InitTimeZone(offset int) {
 // If not exist Asia/Almaty time zone, return custom UTC+6 time zone
 // return time in RFC3339 format
 func TimeStampToAlmatyZone(str string) (string, error) {
-	var timeFormats = []string{defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash,
+	var timeFormats = []string{defaultGolangFormat, defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash,
 		defaultFormatWithOutMillisecond, formatWithSlashWithOutMillisecond, reverseWithSlashWithOutMillisecond}
 
 	var parse time.Time
@@ -82,7 +83,8 @@ func getAlmatyLocale() (*time.Location, int, error) {
 }
 
 func DateToAlmatyTime(str string) (string, error) {
-	var timeFormats = []string{dataWithSlash, dataWithSlashShort, defaultFormat, formatWithSlash, time.RFC3339, reverseWithSlash}
+	var timeFormats = []string{dataWithSlash, dataWithSlashShort, defaultFormat,
+		formatWithSlash, time.RFC3339, reverseWithSlash, defaultGolangFormat}
 
 	var parse time.Time
 	var err error
