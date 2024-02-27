@@ -6,7 +6,7 @@ import (
 	"github.com/lowl11/super-utils/util"
 )
 
-var validCharsForCorp = regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9"' \-,./«»]+$`)
+var validCharsForCorp = regexp.MustCompile(`^[a-zA-Zа-яА-Я0-9ӘәІіҢңҒғҮүҰұҚқӨөҺһЁё"' \-,./«»]+$`)
 
 var OrgForms = map[string]string{
 	"АО":         "Акционерное общество",
