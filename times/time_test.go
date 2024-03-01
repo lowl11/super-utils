@@ -155,12 +155,21 @@ func TestNegativeTimeStampToAlmatyZone(t *testing.T) {
 }
 
 func TestDateToAlmatyTime(t *testing.T) {
+	InitTimeZone(6)
 	expected := "2023-11-16T00:00:00+06:00"
 	{
 		res, err := DateToAlmatyTime("16/11/23")
 		assert.Nil(t, err)
 		assert.Equal(t, expected, res)
 	}
+	{
+		expected := "2024-01-21T00:00:00+06:00"
+		res, err := DateToAlmatyTime("21/01/24")
+
+		assert.Nil(t, err)
+		assert.Equal(t, expected, res)
+	}
+
 	{
 		res, err := DateToAlmatyTime("16/11/2023")
 		assert.Nil(t, err)
@@ -171,4 +180,5 @@ func TestDateToAlmatyTime(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Equal(t, expected, res)
 	}
+
 }

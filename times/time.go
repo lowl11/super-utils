@@ -20,12 +20,12 @@ const (
 )
 
 var almatyLocale *time.Location
-var almatyOffset int
+var almatyOffset *int
 
 // InitTimeZone initializes the time zone for Almaty
 // offset is the time zone offset in hours
 func InitTimeZone(offset int) {
-	almatyOffset = offset
+	almatyOffset = &offset
 	almatyLocale = time.FixedZone("Asia/Almaty", offset*60*60)
 }
 
@@ -52,7 +52,7 @@ func TimeStampToAlmatyZone(str string) (string, error) {
 
 	formatted := ""
 
-	loc, offset, err := getAlmatyLocale()
+	loc, offset, err := GetAlmatyLocale()
 	if err != nil {
 		return "", err
 	}
@@ -73,13 +73,12 @@ func TimeStampToAlmatyZone(str string) (string, error) {
 	return formatted, nil
 }
 
-// getAlmatyLocale returns the time.Location for Almaty
-// if not exist return custom UTC+6 locale
-func getAlmatyLocale() (*time.Location, int, error) {
-	if almatyLocale == nil {
+// GetAlmatyLocale returns the time.Location for Almaty
+func GetAlmatyLocale() (*time.Location, int, error) {
+	if almatyLocale == nil || almatyOffset == nil {
 		return nil, 0, NotHasAlmatyZoneOffset
 	}
-	return almatyLocale, almatyOffset, nil
+	return almatyLocale, *almatyOffset, nil
 }
 
 func DateToAlmatyTime(str string) (string, error) {
@@ -102,7 +101,7 @@ func DateToAlmatyTime(str string) (string, error) {
 
 	formatted := ""
 
-	loc, offset, err := getAlmatyLocale()
+	loc, offset, err := GetAlmatyLocale()
 	if err != nil {
 		return "", err
 	}
