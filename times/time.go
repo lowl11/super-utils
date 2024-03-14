@@ -17,6 +17,7 @@ const (
 const (
 	dataWithSlashShort = "02/01/06"
 	dataWithSlash      = "02/01/2006"
+	dateWithHyphen     = "2006-01-02" // YYYY-MM-DD
 )
 
 var almatyLocale *time.Location
@@ -24,6 +25,7 @@ var almatyOffset *int
 
 // InitTimeZone initializes the time zone for Almaty
 // offset is the time zone offset in hours
+
 func InitTimeZone(offset int) {
 	almatyOffset = &offset
 	almatyLocale = time.FixedZone("Asia/Almaty", offset*60*60)
@@ -82,7 +84,8 @@ func GetAlmatyLocale() (*time.Location, int, error) {
 }
 
 func DateToAlmatyTime(str string) (string, error) {
-	var timeFormats = []string{dataWithSlash, dataWithSlashShort, defaultFormat,
+	var timeFormats = []string{dataWithSlash, dataWithSlashShort,
+		defaultFormat, dateWithHyphen,
 		formatWithSlash, time.RFC3339, reverseWithSlash, defaultGolangFormat}
 
 	var parse time.Time
