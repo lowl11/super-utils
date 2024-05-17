@@ -86,7 +86,7 @@ func transformShortNameToFullName(companyName string) string {
 	})
 
 	for _, transform := range abrTransformList {
-		if len(companyName) < len(transform.AbrName)+1 {
+		if len([]rune(companyName)) < len([]rune(transform.AbrName))+1 {
 			continue
 		}
 		//в конце аббревиатуры должен быть пробел
