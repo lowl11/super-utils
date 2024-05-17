@@ -64,11 +64,10 @@ func IntToStringBool(i string) string {
 	return "false"
 }
 
-func GetKeyByValue(m map[string]string, value string) (key string, found bool) {
-	for k, v := range m {
-		if v == value {
-			return k, true
-		}
-	}
-	return "", false
+func RemoveExtraSpaces(input string) string {
+	// Разбиваем строку на слова, удаляем пустые элементы
+	words := strings.Fields(input)
+	// Собираем слова обратно с одним пробелом между ними
+	result := strings.Join(words, " ")
+	return result
 }
