@@ -59,6 +59,7 @@ var ListAbrToFullForm = []AbrToFullForm{
 	{AbrName: "Inc.", FullName: "Incorporated"},
 	{AbrName: "LDC", FullName: "Limited Duration Company"},
 	{AbrName: "LLC", FullName: "Limited Liability Company"},
+	{AbrName: "LP", FullName: "Limited Partnership"},
 	{AbrName: "Ltd", FullName: "Limited"},
 	{AbrName: "NV", FullName: "Naamlose Vennootschap"},
 	{AbrName: "PLC", FullName: "Public Limited Company"},
