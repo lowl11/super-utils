@@ -90,7 +90,7 @@ func DateToAlmatyTime(str string) (string, error) {
 	var timeFormats = []string{date, dataWithSlash, dataWithSlashShort,
 		defaultFormat, dateWithHyphen,
 		formatWithSlash, time.RFC3339, reverseWithSlash, defaultGolangFormat,
-		reverseDateWithSlash, reverseDateWithSlashShort}
+		reverseDateWithSlash, reverseDateWithSlashShort, defaultFormatWithOutMillisecond}
 
 	var parse time.Time
 	var err error
