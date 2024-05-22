@@ -15,10 +15,12 @@ const (
 	reverseWithSlashWithOutMillisecond = "01/02/2006 15:04:05"
 )
 const (
-	dataWithSlashShort = "02/01/06"
-	dataWithSlash      = "02/01/2006"
-	dateWithHyphen     = "2006-01-02" // YYYY-MM-DD
-	date               = "20060102"
+	dataWithSlashShort        = "02/01/06"
+	dataWithSlash             = "02/01/2006"
+	dateWithHyphen            = "2006-01-02" // YYYY-MM-DD
+	date                      = "20060102"
+	reverseDateWithSlash      = "2006/01/02"
+	reverseDateWithSlashShort = "06/01/02"
 )
 
 var almatyLocale *time.Location
@@ -87,7 +89,8 @@ func GetAlmatyLocale() (*time.Location, int, error) {
 func DateToAlmatyTime(str string) (string, error) {
 	var timeFormats = []string{date, dataWithSlash, dataWithSlashShort,
 		defaultFormat, dateWithHyphen,
-		formatWithSlash, time.RFC3339, reverseWithSlash, defaultGolangFormat}
+		formatWithSlash, time.RFC3339, reverseWithSlash, defaultGolangFormat,
+		reverseDateWithSlash, reverseDateWithSlashShort}
 
 	var parse time.Time
 	var err error
