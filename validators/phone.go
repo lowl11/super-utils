@@ -5,7 +5,8 @@ import (
 	"strings"
 )
 
-var availablePhoneAndFirstPlus = regexp.MustCompile(`^[+]?[0-9()\s–-]+$`)
+var availablePhoneAndFirstPlus = regexp.MustCompile(`^[+]?[0-9()\s-–]+$`)
+var charsToRemove = "+()-–+ "
 
 var KazakhstanOperatorCode = []string{"700", "701", "702", "703", "704", "705",
 	"706", "707", "708", "709", "747", "750", "751", "760", "761",
@@ -13,6 +14,31 @@ var KazakhstanOperatorCode = []string{"700", "701", "702", "703", "704", "705",
 	"302", "303", "304", "305", "306", "307", "308", "309", "347",
 	"350", "351", "360", "361", "362", "363", "364", "371", "375",
 	"376", "377", "378"}
+
+var oldToNewCode = map[string]string{
+	"301": "701",
+	"302": "702",
+	"303": "703",
+	"304": "704",
+	"305": "705",
+	"306": "706",
+	"307": "707",
+	"308": "708",
+	"309": "709",
+	"347": "747",
+	"350": "750",
+	"351": "751",
+	"360": "760",
+	"361": "761",
+	"362": "762",
+	"363": "763",
+	"364": "764",
+	"371": "771",
+	"375": "775",
+	"376": "776",
+	"377": "777",
+	"378": "778",
+}
 
 func ValidateMobilePhone(phone string) (string, bool) {
 	if !IsValidPhone(phone) {
@@ -24,26 +50,12 @@ func ValidateMobilePhone(phone string) (string, bool) {
 		return phone, false
 	}
 
-	//if not is kazakhstan and russian
-	if string(trimmedPhone[0]) != "7" && string(trimmedPhone[0]) != "8" {
-		return "+" + trimmedPhone, true
-	}
-
-	if len(trimmedPhone) != 10 && len(trimmedPhone) != 11 {
-		return phone, false
-	}
-	//russian number
-	if trimmedPhone[:2] == "89" || trimmedPhone[:2] == "79" {
-		return "+" + trimmedPhone, true
-	}
-
-	//validation KazakhstanPhone
-	if !IsKazakhstanPhone(trimmedPhone) {
-		return phone, true
-	}
-
 	if IsKazakhstanPhone(trimmedPhone) {
-		return "+" + transformFirstSymbol(trimmedPhone), true
+		trimmedPhone = transformKazNumber(trimmedPhone)
+	}
+
+	if IsRussianPhone(trimmedPhone) {
+		trimmedPhone = transformRussianNumber(trimmedPhone)
 	}
 
 	return "+" + trimmedPhone, true
@@ -65,24 +77,36 @@ func isFirstPlus(phone string) bool {
 	return false
 }
 
-func transformFirstSymbol(phone string) string {
-	if len(phone) == 11 {
-		if []rune(phone)[0] == '7' || []rune(phone)[0] == '8' {
-			newPhone := []rune(phone)
-			newPhone[0] = '7'
-			return string(newPhone)
+func transformKazNumber(clearedPhone string) string {
+	if !IsKazakhstanPhone(clearedPhone) {
+		return clearedPhone
+	}
+
+	if len(clearedPhone) == 11 {
+		if clearedPhone[0] == '8' {
+			clearedPhone = "7" + clearedPhone[1:]
+		}
+		if code, ok := oldToNewCode[clearedPhone[1:4]]; ok {
+			clearedPhone = clearedPhone[:1] + code + clearedPhone[4:]
 		}
 	}
-	if len(phone) == 10 {
-		return "7" + string(phone)
+
+	if len(clearedPhone) == 10 {
+		if code, ok := oldToNewCode[clearedPhone[0:3]]; ok {
+			clearedPhone = clearedPhone[:0] + code + clearedPhone[3:]
+		}
+		clearedPhone = "7" + clearedPhone
 	}
 
-	return phone
-}
-func trimMobilePhone(input string) string {
-	// Символы, которые нужно удалить
-	charsToRemove := "()-–-+b "
+	if len(clearedPhone) != 11 {
+		return clearedPhone
+	}
 
+	return clearedPhone
+}
+
+// trimMobilePhone удаляет из строки символы +()-–-+b и пробелы
+func trimMobilePhone(input string) string {
 	// Итерируем по строке и удаляем символы
 	for _, char := range charsToRemove {
 		input = strings.ReplaceAll(input, string(char), "")
@@ -119,6 +143,39 @@ func IsKazakhstanPhone(phone string) bool {
 	}
 
 	return false
+}
+
+func IsRussianPhone(phone string) bool {
+	if len(phone) == 11 && (string(phone[0]) == "8" || string(phone[0]) == "7") {
+		code := phone[1:3]
+		if code == "89" || code == "79" {
+			return true
+		}
+	}
+	if len(phone) == 10 {
+		code := []rune(phone)[0]
+		if code == '9' {
+			return true
+		}
+	}
+
+	return false
+}
+
+func transformRussianNumber(phone string) string {
+	if !IsRussianPhone(phone) {
+		return phone
+	}
+
+	if len(phone) == 11 && string(phone[0]) == "8" {
+		rPhon := []rune(phone)
+		rPhon[0] = '7'
+		return string(rPhon)
+	}
+	if len(phone) == 10 && string(phone[0]) == "9" {
+		return "7" + phone
+	}
+	return phone
 }
 
 func ValidateBasicPhone(phone string) (string, bool) {
